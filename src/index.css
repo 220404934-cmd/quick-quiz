@@ -1,81 +1,88 @@
-/* Genel sayfa stili - تنسيق عام للصفحة */
-* {
-  box-sizing: border-box;
-}
-
+/* 🌿 خلفية الصفحة ولتوسيط المحتوى */
 body {
   margin: 0;
   font-family: "Segoe UI", Arial, sans-serif;
-  background-color: #f7f9fc;
-  color: #222;
+  background-color: #f2f5f9; /* خلفية رمادية فاتحة */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
-/* Merkezleme ve genişlik */
+/* 🌸 المربع الأبيض الذي يحتوي الكويز */
 .container {
-  max-width: 600px;
-  margin: 60px auto;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  background-color: #ffffff;
+  padding: 40px 50px;
+  border-radius: 12px;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+  width: 420px;
   text-align: center;
 }
 
-/* Başlık */
+/* 🔹 العنوان الرئيسي */
 h1 {
-  color: #2b7cff;
-  font-size: 32px;
+  color: #0078ff;
+  font-size: 26px;
+  margin-bottom: 25px;
+  border-bottom: 2px solid #0078ff;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+/* 🔹 نص السؤال */
+h2 {
+  font-size: 18px;
+  color: #222;
   margin-bottom: 25px;
 }
 
-/* Soru yazısı */
-h2 {
-  font-size: 20px;
-  margin-bottom: 20px;
-}
-
-/* Seçenek butonları */
+/* 🔹 أزرار الخيارات */
 .optionBtn {
-  display: inline-block;
-  margin: 8px;
-  padding: 12px 20px;
-  font-size: 16px;
+  display: block;
+  width: 100%;
+  background-color: #0078ff;
+  color: white;
   border: none;
-  border-radius: 10px;
-  background-color: #e8f0fe;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 16px;
+  margin-bottom: 10px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .optionBtn:hover {
-  background-color: #2b7cff;
-  color: white;
+  background-color: #005fcc;
 }
 
-/* Sonuç ekranı */
+/* 🔹 زر إعادة الكويز */
 .primaryBtn {
-  background-color: #2b7cff;
-  color: #fff;
+  background-color: #0078ff;
+  color: white;
   border: none;
-  padding: 12px 20px;
-  border-radius: 10px;
-  cursor: pointer;
+  border-radius: 8px;
+  padding: 12px 24px;
   font-size: 16px;
-  transition: background 0.2s;
-  margin-top: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .primaryBtn:hover {
-  background-color: #1a5edb;
+  background-color: #005fcc;
 }
 
-/* Mobil görünüm için */
+/* 🔹 لجعلها متوافقة مع الجوال */
 @media (max-width: 480px) {
   .container {
     width: 90%;
+    padding: 30px 20px;
+  }
+
+  h1 {
+    font-size: 22px;
   }
 
   .optionBtn {
-    width: 100%;
+    font-size: 15px;
   }
 }
