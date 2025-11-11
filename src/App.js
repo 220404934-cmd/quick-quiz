@@ -1,43 +1,70 @@
-// React kütüphanesinden useState fonksiyonunu içe aktarıyoruz
-// نضيف useState من مكتبة React حتى نقدر نحفظ حالة السؤال والنتيجة
+// React kütüphanesinden gerekli fonksiyonları içe aktarıyoruz
+// استيراد الدوال اللازمة من React
 import React, { useState } from "react";
 
-// (İleride eklenecek olan soru verilerini import edeceğiz)
-// لاحقاً سنضيف ملف الأسئلة (QUESTIONS)
+// Bileşenleri içe aktarıyoruz
+// استيراد المكونات (Components)
+import QuestionCard from "./components/QuestionCard";
+import ResultsScreen from "./components/ResultsScreen";
+
+// Soru verilerini içe aktarıyoruz
+// استيراد الأسئلة من ملف البيانات
+import QUESTIONS from "./data/questions";
 
 function App() {
-  // 1️⃣ Kullanıcının şu anda hangi soruda olduğunu saklamak için state oluşturuyoruz
-  // نستخدم state لحفظ رقم السؤال الحالي الذي يظهر الآن
+  // Şu anki sorunun indexini tutuyoruz (0'dan başlar)
+  // نحتفظ برقم السؤال الحالي (يبدأ من 0)
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
-  // 2️⃣ Kullanıcının toplam puanını (doğru cevap sayısı) tutuyoruz
-  // نستخدم state لحفظ عدد النقاط (الإجابات الصحيحة)
+  // Kullanıcının doğru cevap sayısını tutuyoruz
+  // نحتفظ بعدد الإجابات الصحيحة للمستخدم
   const [score, setScore] = useState(0);
 
-  // 3️⃣ Cevap tıklandığında çalışacak olan fonksiyon
-  // هذه الدالة تُستدعى عند ضغط المستخدم على أحد الخيارات
+  // Kullanıcının cevaba tıkladığında yapılacak işlemleri tanımlıyoruz
+  // دالة تُنفذ عند الضغط على الإجابة
   const handleAnswerClick = (selectedOption) => {
-    const currentQuestion = QUESTIONS[currentQuestionIndex]; // şu anki soruyu alıyoruz
-    // نأخذ السؤال الحالي من قائمة الأسئلة
+    const currentQuestion = QUESTIONS[currentQuestionIndex];
 
-    // Eğer seçilen cevap doğruysa puanı artır
-    // إذا كانت الإجابة المختارة صحيحة نزيد النقاط
+    // Eğer doğru cevap seçilmişse puanı artır
+    // إذا كانت الإجابة صحيحة → أضف نقطة
     if (selectedOption === currentQuestion.correctAnswer) {
       setScore(score + 1);
     }
 
-    // Sonraki soruya geç (bir artır)
-    // ننتقل للسؤال التالي
+    // Sonraki soruya geç
+    // انتقل للسؤال التالي
     setCurrentQuestionIndex(currentQuestionIndex + 1);
   };
 
-  // (Uygulamanın görüntüleneceği kısım burada olacak - daha sonra eklenecek)
-  // هنا رح نضيف عرض الأسئلة لاحقاً (رح نربطه مع QuestionCard)
+  // Quiz'i yeniden başlatmak için fonksiyon
+  // دالة لإعادة تشغيل الكويز من البداية
+  const restartQuiz = () => {
+    setCurrentQuestionIndex(0);
+    setScore(0);
+  };
+
+  // Ekranda gösterilecek kısmı render ediyoruz
+  // الجزء الذي يُعرض على الشاشة
   return (
-    <div>
+    <div className="container">
       <h1>Quick Quiz</h1>
-      <p>Şu anki soru: {currentQuestionIndex + 1}</p>
-      <p>Puan: {score}</p>
+
+      {/* Eğer tüm sorular bittiyse sonucu göster */}
+      {/* إذا انتهت جميع الأسئلة، أظهر النتيجة */}
+      {currentQuestionIndex >= QUESTIONS.length ? (
+        <ResultsScreen
+          score={score}
+          totalQuestions={QUESTIONS.length}
+          onRestart={restartQuiz}
+        />
+      ) : (
+        // Eğer sorular bitmediyse sıradaki soruyu göster
+        // إذا لم تنتهِ الأسئلة، اعرض السؤال الحالي
+        <QuestionCard
+          question={QUESTIONS[currentQuestionIndex]}
+          onAnswerClick={handleAnswerClick}
+        />
+      )}
     </div>
   );
 }
